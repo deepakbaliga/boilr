@@ -5,7 +5,5 @@ export default {
   // assetsBuildDirectory: "public/build",
   // publicPath: "/build/",
   // serverBuildPath: "build/index.js",
-  future: {
-    tailwind: true,
-  },
+  tailwind: true,
 };
