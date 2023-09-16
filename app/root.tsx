@@ -1,18 +1,15 @@
 import { cssBundleHref } from '@remix-run/css-bundle';
-import type { LoaderFunction, LinksFunction } from '@remix-run/node';
+import type {  LinksFunction } from '@remix-run/node';
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 import styles from '~/tailwind.css';
-import { rootAuthLoader } from '@clerk/remix/ssr';
-import { ClerkApp, ClerkCatchBoundary, V2_ClerkErrorBoundary } from '@clerk/remix';
+import {ThemeProvider} from "next-themes";
+
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: styles },
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
 ];
 
-export const loader: LoaderFunction = (args) => rootAuthLoader(args);
-export const CatchBoundary = ClerkCatchBoundary();
-export const ErrorBoundary = V2_ClerkErrorBoundary(CatchBoundary);
 
 function App() {
   return (
@@ -24,7 +21,9 @@ function App() {
         <Links />
       </head>
       <body>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
         <Outlet />
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
@@ -33,4 +32,4 @@ function App() {
   );
 }
 
-export default ClerkApp(App);
+export default App;
